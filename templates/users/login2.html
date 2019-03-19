@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{%load crispy_forms_tags%}
+{% block content %}
+<div class="container h-100 ">
+<form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    <div class="d-flex justify-content-center ">
+        <div class="col-sm-12">
+            {{form|crispy}}
+            <div class="form-group row col-sm-6">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+        <div class="text-center social-btn">
+            <a href=" {% url 'social:begin' 'facebook' %}" class="btn btn-primary"><i class=" fab fa-facebook"></i>&nbsp; Login as a player with facebook</a>
+        </div> <br>
+<div class="container h-100 ">
+    <a href="{% url  'user_signup' %}" class="btn btn-secondary">Do not have an account? Signup Now! </a> `
+</div>`
+
+
+{% endblock %}

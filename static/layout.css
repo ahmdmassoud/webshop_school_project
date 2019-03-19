@@ -1,0 +1,54 @@
+/* this stylesheet is not currently being used */ 
+.header {
+  width:100%;
+  margin: 0;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  background: #393f4d;
+  color: #feda6a;
+  font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-weight: semi-bold;
+  padding: 3%
+}
+.header>ul{
+  text-align:center;
+}
+h1 {
+  font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-weight: sbold;
+  width: 100%;
+  margin-bottom: 0;
+  padding: 2%;
+  color:#1d1e22;
+  background-color: #d4d4dc;
+  text-align: center;
+}
+
+.header>ul>li {
+  display: inline;
+  padding-left: 5%;
+  padding-right: 5%;
+  list-style-type: none;
+
+}
+#aside {
+  float:right;
+  width: 23%;
+  margin:1%;
+  margin-top: 0%;
+  height: auto;
+  border: 1px solid grey;
+}
+#footer {
+  border-top: 1px solid grey;
+  position: absolute;
+  width: 100%;
+
+}
+#content {
+  width: 75%;
+  border: 1px solid grey;
+}
+#footer>p {
+  text-align: center;
+}

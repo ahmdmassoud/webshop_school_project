@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+
+        <!-- Cards documentation: https://getbootstrap.com/docs/4.2/components/card/ -->
+        <div class="container">
+        <h3>
+        {% if user.is_authenticated %}
+                      Hello {{user.first_name}}
+                    {% endif %}
+          </h3>
+          <div class="row">
+          {% for card in cards %}
+              <div class="col-sm-5" style="margin: 1%">
+                <div class="card">
+                  <div class="card-body">
+                      <h4 class="card-title">{{card.title}} </h4>
+                      <p class="card-text">{{card.text}}</p>
+                      <a href="{{card.link}}" class="btn btn-primary">Go to {{card.title}} </a>
+                  </div>
+                </div>
+              </div>
+          {% endfor %}
+        </div>
+        {{extras|safe}}  {# lets you add in html code #}
+      </div>
+
+{% endblock %}

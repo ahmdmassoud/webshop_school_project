@@ -1,0 +1,97 @@
+<!doctype html>
+<!-- https://docs.djangoproject.com/en/2.1/howto/static-files/ -->
+{% load static %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+
+    <!--<taken from https://getbootstrap.com/docs/4.0/examples/sticky-footer/ -->
+    <!-- getting static files: https://docs.djangoproject.com/en/2.1/howto/static-files/ -->
+    <link rel="stylesheet" href="{% static 'sticky-footer.css' %}" type="text/css" media="screen, projection" >
+    <link href="https://use.fontawesome.com/releases/v5.0.7/css/all.css" rel="stylesheet">
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <title> Gameshop: {{title}} </title>
+  </head>
+  <body>
+
+
+    <!-- Navigation bar with collapsible button -->
+    <!-- documentation: https://getbootstrap.com/docs/4.2/components/navbar/ -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light container-fluid">
+      <a class="navbar-brand" href="/">Gameshop</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse"  id="navbarNavAltMarkup">
+        <div class="navbar-nav nav-fill w-100">
+          <a class="nav-item nav-link" href="{% url 'home' %}">Home <span class="fas fa-home"></span><span class="sr-only">(current)</span> </a>
+          <!-- later we should just show this for user if developer -->
+          {% if user.is_authenticated and developer%}
+            <a class="nav-item nav-link" href="{% url 'game_add' %}">Add Game  <span class="fas fa-plus"></span></a>
+          {% endif%}
+            <a class="nav-item nav-link" href="{% url 'games_list' %}">Games  <span class="fas fa-gamepad"></span></a>
+          {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'user_profile' %}">My Profile {{request.user.first_name}}  <span class="fas fa-user"></span></a>
+          {%endif%}
+          <a class="nav-item nav-link" href="{% url 'games_highscores' %}">Highscores <span class="fas fa-list"></a>
+          {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'user_logout' %}"><span class="fas fa-sign-out-alt "></span>Logout</a>
+          {% else %}
+            <li><a class="nav-item nav-link" href="{% url 'login' %}"><span class="fas fa-sign-in-alt"></span> Login</a></li>
+            <li><a class="nav-item nav-link" href="{% url 'user_signup' %}"><span class="fas fa-user-plus"></span> Signup</a></li>
+
+          {% endif %}
+
+          </div>
+        </div>
+      </nav>
+
+      <!-- Jumbotron creates a title type view into the page -->
+      <!--documentation: https://getbootstrap.com/docs/4.1/components/jumbotron/ -->
+      <div class="h-100 align-items-center">
+        <div class="jumbotron ">
+          <h4> {{title}} </h4>
+        </div>
+        {% if messages %}
+          {% for message in messages  %}
+              <div class="alert alert-{{message.tags}}">
+                {{message}}
+              </div>
+          {% endfor %}
+        {% endif %}
+      <!-- Template extending -->
+      <!-- Documentation https://docs.djangoproject.com/en/1.7/topics/templates/ -->
+      {% block content %}
+      {% endblock %}
+    </div>
+    <footer id="footer">
+      <div class="container">
+        <span class="text-muted">WEB SHOP &copy; 2019 Web software Development course Project
+        </span>
+      </div>
+    </footer>
+  </body>
+</html>

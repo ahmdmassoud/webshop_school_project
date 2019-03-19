@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <!-- Cards documentation: https://getbootstrap.com/docs/4.2/components/card/ -->
+  <div class="container">
+    <div class="row">
+    {% for game in games %}
+        <div class="col-md-5" style="margin: 1%">
+          <div class="card">
+            <div class="card-body">
+                  <h4 class="card-title">{{game.name}}</h4>
+                  <p class="card-text">{{game.description}}</p>
+                  <a href="{% url 'game_play_basic' %}{{game.id}}/" class="btn btn-primary">Buy for {{game.price}} € </a>
+            </div>
+          </div>
+        </div>
+    {% endfor %}
+  </div>
+{# Valtteri! make this better #}
+  {{extras|safe}}  {# lets you add in html code #}
+</div>
+
+{% endblock %}

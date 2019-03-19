@@ -1,0 +1,5 @@
+{% autoescape off %}
+<h2>Hi {{ user.username }}</h2><br>
+Welcome to our amazing gameshop, Kindly click the link below to confrim your email and start te fun :D,
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+{% endautoescape %}

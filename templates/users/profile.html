@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container col-md-12">
+  <!-- This part shows the user their information -->
+    <h2> Information </h2> <br>
+     <form class="form-horizontal" role="form">
+        <div class="form-group row">
+           <label class="col-sm-3 control-label">Username:</label>
+           <div class="col-sm-8">
+             <input class="form-control" type="text" value="{{request.user.username}}" disabled>
+           </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 control-label">Email:</label>
+          <div class="col-sm-8">
+            <input class="form-control" type="text" value="{{request.user.email}}" disabled>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 control-label">Date created:</label>
+          <div class="col-sm-8">
+            <input class="form-control" type="text" value="{{request.user.date_joined}}" disabled>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 control-label">Account type:</label>
+          <div class="col-sm-8">
+            <input class="form-control" type="text" value="{{type}}" disabled>
+          </div>
+        </div>
+      </form>
+  </div>
+
+
+  <!-- This part shows the user their games -->
+  <div class="container col-md-12">
+      <br> <h2> Games Library </h2> <br>
+      {% ifequal type "Player" %}
+        {% for game in mygames %}
+          <form class="form" role="form" action="{% url 'game_play_basic' %}{{game.gameid.id}}">
+            <div class="form-row align-items-center">
+              <label for="submit" class="control-label col-sm-3"> {{game.gameid.name}} </label>
+              <input type="submit"  class="col-sm-3" value="Go to Game" />
+
+              <label for="submit" class="control-label col-sm-3 offset-1"> My highscore: &nbsp {{game.score}} </label>
+            </div>
+          </form>
+        {% endfor %}
+
+
+        <!-- This part shows the developer the games they own -->
+      {% else %}
+        <p>These are my games and their prices</p>
+        {% for game in mygames %}
+          <form class="form" role="form" action="{% url 'game_edit_base' %}{{game.id}}">
+            <div class="form-row">
+              <label class="control-label col-sm-4"> {{game.name}}</label>
+              <input class="form-control col-sm-2 offset-sm-1" style="text-align: center;" type="text" value="{{game.price}} €" disabled>
+              <input type="submit" class="col-sm-2 offset-sm-2" value="Edit details" />
+            </div>
+          </form>
+        {% endfor %}
+      {% endifequal %}
+  </div>
+
+
+{% endblock %}
